@@ -1,4 +1,5 @@
 
+import calculationsRoutes from "./calculations/calculations.routes.js";
 import cartRoutes from "./cart/cart.routes.js";
 import categoryRoutes from "./category/category.routes.js";
 import clientRoutes from "./client/client.routes.js";
@@ -15,7 +16,7 @@ export const allRoutes = (app) => {
   app.use("/api/v1/cart", cartRoutes);
   app.use("/api/v1/orders", orderRoutes);
   app.use("/api/v1/room", roomRoutes);
-
+app.use("/api/v1/calculations", calculationsRoutes);
 
 
 };

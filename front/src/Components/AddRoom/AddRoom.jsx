@@ -18,14 +18,11 @@ export default function AddRoom() {
   });
   // todo : send data to server
   const handleSubmit = async (values) => {
-    // console.log("done",values);
     axios.post(`${process.env.REACT_APP_BASE_URL}room`, values).then(response => {
-      // console.log(response);
       notify("success", "Room Added Successfully");
       navigate(`/units/${unitId}`)
     })
     .catch(error => {
-      // console.log("error", error);
       notify("error",`an error occured ${error.message}`);
     })
   }

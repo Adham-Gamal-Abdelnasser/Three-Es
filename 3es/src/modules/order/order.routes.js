@@ -1,13 +1,20 @@
 // order.routes.js
 import express from 'express';
-import { createOrder, checkPaymentStatus, getAllOrders } from './controller/order.controller.js';
-import { checkClient } from '../../middleware/checkClient.js'; // Assuming you have this middleware
+import { createOrder, generateInvoice, getOrderById, getOrdersByClientId, updatePayment } from './controller/order.controller.js';
 
 const orderRoutes = express.Router();
+// Create a new order for a client
+orderRoutes.post('/:clientId', createOrder);
 
-orderRoutes.post('/clients/:clientId/units/:unitId/carts/:cartId', checkClient, createOrder);
-orderRoutes.get('/:orderId/payment-status', checkPaymentStatus);
-orderRoutes.get('/', getAllOrders);
-// Add more routes here as needed
+// Update payment for an order
+orderRoutes.put('/payment/:orderId', updatePayment);
 
+// Get all orders for a client
+orderRoutes.get('/client/:clientId', getOrdersByClientId);
+
+// Get order details by order ID
+orderRoutes.get('/:orderId', getOrderById);
+
+// Generate invoice for an order
+orderRoutes.get('/:orderId/invoice', generateInvoice);
 export default orderRoutes;

@@ -31,7 +31,6 @@ export default function Customers() {
         setActiveClientId(storedClientId);
       }
     } catch (error) {
-      console.error("Error fetching clients:", error);
     }
   };
   useEffect(() => {

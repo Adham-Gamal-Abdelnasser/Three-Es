@@ -12,11 +12,9 @@ export default function Categories() {
   // todo delete category
   async function deleteCategory(id) {
     axios.delete(`${process.env.REACT_APP_BASE_URL}category/${id}`).then(response=>{
-      // console.log(response);
       notify("success","deleted successfully")
       GetAllCategories()
     }).catch(error=>{
-      console.log(error);
       notify("error",`an error occured ${error.message}`)
     })
   }
@@ -26,9 +24,7 @@ export default function Categories() {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}category`);
       setCategories(response?.data.allCategories);
-      // console.log(response?.data.allCategories);
     } catch (error) {
-      console.error('Error fetching categories:', error);
       notify("error",`an error occured ${error.message}`)
     }
   }

@@ -3,6 +3,7 @@ import Joi from "joi";
 export const addUnitSchema = Joi.object({
   unitName: Joi.string().min(3).max(20).required(),
   floorNum: Joi.number().min(0).required(),
+  address: Joi.string(),
  
   client: Joi.string().hex().length(24).required(),
 });

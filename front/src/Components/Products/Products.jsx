@@ -23,11 +23,9 @@ export default function Products() {
     // todo delete product
     async function deleteProduct(id) {
         axios.delete(`${process.env.REACT_APP_BASE_URL}product/${id}`).then(response=>{
-          console.log(response);
           notify("success","deleted successfully")
           GetAllProducts()
         }).catch(error=>{
-          console.log(error);
           notify("error",error.data.message)
         })
       }
@@ -42,7 +40,6 @@ export default function Products() {
     let {addProductToRoom} = useContext(RoomContext)
     async function addProductToActivatedRoom(roomId,productId){
         let response = await addProductToRoom(roomId,productId)
-        console.log(response);
     }
 
     // todo Fetch all products from API
@@ -50,7 +47,6 @@ export default function Products() {
         try {
             const response = await axios.get(`${process.env.REACT_APP_BASE_URL}product`);
             setProducts(response.data.allProducts)
-            console.log(response.data.allProducts);
         } catch (error) {
             notify("error",`an error occurred : ${error.message}`)
         }
@@ -83,10 +79,10 @@ export default function Products() {
                                             <div className="w-full flex items-center justify-between flex-wrap">
                                                 <Link className='w-full' to={`/product/${product._id}`}>
                                                     <div className="w-full flex justify-between">
-                                                        <h5 className="text-lg font-semibold tracking-tight text-gray-900 ">{product.title}</h5>
-                                                        <p className="mt-2 text-sm text-green-500">{product.priceAfterDiscount<product.price ? <span><del className='mx-2 text-red-600'>{product.price}</del>{product.priceAfterDiscount}</span>:<span>{product.price}</span>}</p>
+                                                        <h5 className="text-md font-semibold tracking-tight text-gray-900 ">{product.title}</h5>
+                                                        <p className="mt-2 text-sm text-green-500">{product.priceAfterDiscount<product.price ? <span><del className='mx-2 text-red-600'>{product.price}</del>{product.priceAfterDiscount} {product.currency}</span>:<span>{product.price} {product.currency}</span>}</p>
                                                     </div>
-                                                    <p className='my-2 break-words'>{product.description}</p>
+                                                    <p className='my-2 break-words'>{product.type}</p>
                                                 </Link>
                                                 <div>
                                                     <Button onClick={()=>{addProductToCartAndRoom(activeRoomId,product._id)}} className="text-sm font-normal my-3 bg-black flex items-center">Add to cart <FaShoppingCart className='mx-2'/></Button>

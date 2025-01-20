@@ -5,10 +5,13 @@ import { FaArrowRight } from "react-icons/fa";
 import React from 'react'
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function AddClient() {
     const notify = (type, msg) => toast[type](msg);
+    const navigate = useNavigate("")
+
     // todo : add validation
     const clientSchema = Yup.object().shape({
         firstName: Yup.string().required("first name is required :)"),
@@ -22,10 +25,9 @@ export default function AddClient() {
             const response = await axios.post(`${process.env.REACT_APP_BASE_URL}client`, values)
             if (response.data.message === 'Client added successfully' || response.data.status == 201) {
                 notify("success",response.data.message)
-                console.log('Client added successfully:', response.data);
+                navigate("/products")
             }
         } catch (error) {
-            console.error('Error adding Client:', error);
             notify("error",`an error occured : ${error.message}`)
         }
     }

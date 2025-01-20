@@ -15,17 +15,16 @@ export default function AddUnit() {
   const unitSchema = Yup.object({
     unitName: Yup.string().required().min(3,'Unit Name must be at least 3 letters long.'),
     floorNum: Yup.number().required(),
+    address: Yup.string().required(),
     client: Yup.string().required(),
   })
   let activeClientId = localStorage.getItem("activeClientId")
   // todo : send unit's data to server
   const handleSubmit = async (values)=> {
     axios.post(`${process.env.REACT_APP_BASE_URL}unit`, values).then(response=>{
-      // console.log(response);
       notify("success",response.data.message)
       navigate("/units")
     }).catch(error=>{
-      // console.error('Error adding unit:', error);
       notify("error",'Error adding unit')
     })
   }
@@ -36,6 +35,7 @@ export default function AddUnit() {
         initialValues={{
           unitName:"",
           floorNum:"",
+          address:"",
           client: activeClientId,
         }}
         validationSchema={unitSchema}
@@ -48,6 +48,14 @@ export default function AddUnit() {
               <Field name="unitName" as={TextInput} id="unitName" placeholder="unit name" required className='w-3/4' />
               {errors.unitName && touched.unitName ? (
                   <div className="w-full text-red-500 text-center">{errors.unitName}</div>
+              ) : null}
+            </div>
+            
+            <div className='w-full flex items-center mb-3 flex-wrap'>
+              <Label className='w-1/4 text-center' htmlFor="address">Address</Label>
+              <Field name="address" as={TextInput} id="address" placeholder="Address" required className='w-3/4' />
+              {errors.address && touched.address ? (
+                  <div className="w-full text-red-500 text-center">{errors.address}</div>
               ) : null}
             </div>
 

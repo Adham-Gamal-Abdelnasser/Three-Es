@@ -12,6 +12,9 @@ const schema = new mongoose.Schema({
     type: Number,
     required: true,
   },
+  address: {
+    type: String,
+  },
 
   client:{
     type:mongoose.Types.ObjectId,

@@ -22,6 +22,23 @@ const getUnitById = catchError(async (req, res) => {
   }
   res.json({ message: "unit retrieved successfully", unit });
 });
+const getAllUnitsByClientId = catchError(async (req, res, next) => {
+  const { clientId } = req.params;
+
+  // Find all units associated with the client
+  const units = await unitModel.find({ client: clientId });
+
+  if (!units || units.length === 0) {
+    return next(new AppError("No units found for this client", 404));
+  }
+
+  res.status(200).json({
+    status: 'success',
+    count: units.length,
+    message: "Units retrieved successfully",
+    units,
+  });
+});
 // Get a room by unit ID
 const getRoomByUnitId = catchError(async (req, res, next) => {
   const unitId = req.params.unitId;
@@ -47,4 +64,4 @@ const deleteUnit = catchError(async (req, res) => {
   !deletedUnit && res.json(new AppError({ message: "Unit Not Found" }, 404));
 });
 
-export { addUnit, getAllUnits, getUnitById, updateUnit, deleteUnit,getRoomByUnitId };
+export { addUnit, getAllUnits, getUnitById, updateUnit, deleteUnit,getRoomByUnitId,getAllUnitsByClientId };

@@ -10,7 +10,6 @@ import Units from "./Components/Units/Units.jsx";
 import AddClient from "./Components/AddClient/AddClient.jsx";
 import { CartContextProvider } from "./Context/CartContext.js";
 import Cart from "./Components/Cart/Cart.jsx";
-import { DetailsContextProvider } from "./Context/DetailsContext.js";
 import { ToastContainer } from 'react-toastify';
 import AddUnit from "./Components/AddUnit/AddUnit.jsx";
 import ProductsLayout from "./Components/ProductsLayout/ProductsLayout.jsx";
@@ -22,6 +21,9 @@ import NotFound from "./Components/NotFound/NotFound.jsx";
 import { RoomContextProvider } from "./Context/RoomContext.js";
 import ProductDetails from "./Components/ProductDetails/ProductDetails.jsx";
 import Checkout from "./Components/Checkout/Checkout.jsx";
+import CartCalculations from "./Components/CartOperation/CartOperation.jsx";
+import Invoice from "./Components/Invoice/Invoice.jsx";
+import Order from "./Components/Order/Order.jsx";
 
 function App() {
   let routers = createBrowserRouter([
@@ -42,6 +44,9 @@ function App() {
         { path: "addRoom", element: <AddRoom /> },
         { path: "customers", element: <Customers /> },
         { path: "cart", element: <Cart /> },
+        { path: "calculate-cart", element: <CartCalculations /> },
+        { path: "get-invoice", element: <Invoice /> },
+        { path: "order", element: <Order /> },
         { path: "checkout", element: <Checkout /> },
         { path: "categories", element: <Categories /> },
         { path: "addCategory", element: <AddCategory /> },
@@ -57,10 +62,8 @@ function App() {
     <CartContextProvider>
       <RoomContextProvider>
         <CategoryContextProvider>
-          <DetailsContextProvider>
             <ToastContainer></ToastContainer>
             <RouterProvider router={routers}></RouterProvider>
-          </DetailsContextProvider>
         </CategoryContextProvider>
       </RoomContextProvider>
     </CartContextProvider>

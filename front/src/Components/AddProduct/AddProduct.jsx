@@ -8,6 +8,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
+// ["OutSide", "InSide"]
+// ["USD", "EGP"]
+
 export default function AddProduct() {
   const [imageCover, setImageCover] = useState(null);
   const [images, setImages] = useState([]);
@@ -20,11 +23,13 @@ export default function AddProduct() {
     title: Yup.string().required('Product Name is required'),
     description: Yup.string().required('Description is required'),
     price: Yup.number().required('Price is required').positive(),
-    priceAfterDiscount: Yup.number(),
+    // priceAfterDiscount: Yup.number(),
     quantity: Yup.number().required('Quantity is required').positive().integer(),
     serialNumber: Yup.string().required('Serial Number is required').min(3,"Min 3 numbers"),
     sold: Yup.number().required('Sold is required').positive().integer(),
-    category: Yup.string().required('Category is required')
+    category: Yup.string().required('Category is required'),
+    type: Yup.string().oneOf(["InSide","OutSide"]).required('Type is required'),
+    currency: Yup.string().oneOf(["USD","EGP"]).required('currency is required'),
   });
 
   const handleImageCoverChange = (event) => {
@@ -44,11 +49,12 @@ export default function AddProduct() {
     formData.append('title', values.title);
     formData.append('description', values.description);
     formData.append('price', values.price);
-    formData.append('priceAfterDiscount', values.priceAfterDiscount);
     formData.append('quantity', values.quantity);
     formData.append('serialNumber', values.serialNumber);
     formData.append('sold', values.sold);
     formData.append('category', values.category);
+    formData.append('type', values.type);
+    formData.append('currency', values.currency);
   
     try {
       const response = await axios.post(`${process.env.REACT_APP_BASE_URL}product`, formData, {
@@ -59,7 +65,7 @@ export default function AddProduct() {
       notify("success",response.data.message)
       navigate("/products")
     } catch (error) {
-      notify("error",`an error occurred while adding product : ${error.message}`)
+      notify("error",`an error occurred while adding product : ${error.response.data.error}`)
     }
   };
   
@@ -68,7 +74,7 @@ export default function AddProduct() {
     try {
       const response = await axios.get(`${process.env.REACT_APP_BASE_URL}category`);
       setCategories(response?.data.allCategories);
-    } catch (error) {
+    } catch (error) {      
       notify("error",`an error occurred getting cateogries : ${error.message}`)
     }
 
@@ -81,8 +87,8 @@ export default function AddProduct() {
   return (
     <div className="min-h-screen flex flex-col rounded-2xl">
       <div className='flex-grow p-6 flex justify-center'>
-        <div className="w-1/2">
-          <div className="flex w-full items-center justify-center">
+        <div className="lg:w-1/2 md:w-full">
+          <div className="flex flex-wrap w-full items-center justify-center">
             <Label
               htmlFor="cover-image"
               className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
@@ -116,7 +122,7 @@ export default function AddProduct() {
           </div>
         </div>
 
-        <div className="w-1/2">
+        <div className="lg:w-1/2 md:w-full">
           <Formik
             initialValues={{
               title: '',
@@ -161,13 +167,13 @@ export default function AddProduct() {
                     <div className="w-full text-red-500 text-center">{errors.price}</div>
                   ) : null}
                 </div>
-                <div className='w-full flex items-center mb-3 flex-wrap'>
+                {/* <div className='w-full flex items-center mb-3 flex-wrap'>
                   <Label className='w-1/4 text-center' htmlFor="priceAfterDiscount">Price After Discount</Label>
                   <Field name="priceAfterDiscount" type="number" as={TextInput} id="priceAfterDiscount" placeholder="Price After Discount" className='w-3/4' />
                   {errors.priceAfterDiscount && touched.priceAfterDiscount ? (
                     <div className="w-full text-red-500 text-center">{errors.priceAfterDiscount}</div>
                   ) : null}
-                </div>
+                </div> */}
                 <div className='w-full flex items-center mb-3 flex-wrap'>
                   <Label className='w-1/4 text-center' htmlFor="sold">Sold</Label>
                   <Field name="sold" as={TextInput} id="sold" placeholder="Sold" required className='w-3/4' type="number" />
@@ -185,6 +191,28 @@ export default function AddProduct() {
                   </Field>
                   {errors.category && touched.category ? (
                     <div className="w-full text-red-500 text-center">{errors.category}</div>
+                  ) : null}
+                </div>
+                <div className='w-full flex items-center mb-3 flex-wrap'>
+                  <Label className='w-1/4 text-center' htmlFor="type">Type</Label>
+                  <Field as="select" name="type" id="type" required className='w-3/4 bg-gray-50 border-gray-300'>
+                    <option value="">Select type</option>
+                      <option value="InSide">InSide</option>                    
+                      <option value="OutSide">OutSide</option>                    
+                  </Field>
+                  {errors.type && touched.type ? (
+                    <div className="w-full text-red-500 text-center">{errors.type}</div>
+                  ) : null}
+                </div>
+                <div className='w-full flex items-center mb-3 flex-wrap'>
+                  <Label className='w-1/4 text-center' htmlFor="currency">Currency</Label>
+                  <Field as="select" name="currency" id="currency" required className='w-3/4 bg-gray-50 border-gray-300'>
+                    <option value="">Select the currency</option>
+                      <option value="USD">USD</option>                    
+                      <option value="EGP">EGP</option>                    
+                  </Field>
+                  {errors.currency && touched.currency ? (
+                    <div className="w-full text-red-500 text-center">{errors.currency}</div>
                   ) : null}
                 </div>
                 <div className='w-full flex items-center mb-3 flex-wrap'>

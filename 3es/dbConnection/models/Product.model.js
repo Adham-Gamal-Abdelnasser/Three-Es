@@ -39,6 +39,16 @@ const schema = new mongoose.Schema(
       default: 0,
       required: true,
     },
+    currency: {
+      type: String,
+      enum: ["USD", "EGP"],
+      required: true,
+    },
+    type: {
+      type: String,
+      enum: ["OutSide", "InSide"],
+      required: true,
+    },
     quantity: {
       type: Number,
       default: 1,

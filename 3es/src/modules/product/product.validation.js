@@ -33,6 +33,8 @@ export const addProductSchema = Joi.object({
     path: Joi.string().required(),
     size: Joi.number().max(5242880).required(),
   }).required()).required()
+  ,currency:Joi.string().valid('USD','EGP').required(),
+  type:Joi.string().valid("OutSide", "InSide").required(),
   
 });
 export const getByIdSchema = Joi.object({

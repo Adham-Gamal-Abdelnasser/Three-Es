@@ -1,6 +1,7 @@
 import React from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import { Link } from 'react-router-dom';
+import logo from '../../assets/logo2-5.png';
 
 //icons
 import { AiFillProduct } from 'react-icons/ai';
@@ -11,9 +12,11 @@ import { IoMdHome } from "react-icons/io";
 export default function MainNav() {
   return (
     <Navbar rounded className='m-6 shadow-lg rounded-2xl'>
-      <Navbar.Brand href='https://flowbite-react.com'>
-        <span className='self-center whitespace-nowrap text-xl font-semibold dark:text-white'>Logo</span>
-      </Navbar.Brand>
+      <Link to="/products">
+        <div className="flex items-center justify-between w-14">
+          <img src={logo} className='w-full' alt="Three E S for solutions" />
+        </div>
+      </Link>
       <div className='flex md:order-2'>
         <Dropdown
           arrowIcon={false}

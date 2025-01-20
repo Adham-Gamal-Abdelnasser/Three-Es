@@ -49,7 +49,7 @@ const getCart = catchError(async (req, res, next) => {
   let clientId = req.params.clientId;
   let cart = await cartModel.findOne({ client: clientId }).populate({
     path: 'cartItems.product',
-    select: 'title imageCover price'
+    select: 'title imageCover price currency type'
   });
 
   if (!cart) {
@@ -65,7 +65,9 @@ const getCart = catchError(async (req, res, next) => {
         _id: item.product._id,
         name: item.product.title,
         image: item.product.imageCover,
-        price: item.product.price
+        price: item.product.price,
+        currency: item.product.currency,
+        type: item.product.type
       } : null, // or handle it in another way if needed
       quantity: item.quantity,
     }))

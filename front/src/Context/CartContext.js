@@ -26,7 +26,6 @@ export function CartContextProvider(props) {
     function getLoggedUserCart() {
         activeClientId = localStorage.getItem("activeClientId")
         return axios.get(`${process.env.REACT_APP_BASE_URL}cart/clients/${activeClientId}`,).then(response=>{
-            console.log(response);
             return response
         })
         .catch(error=>error)
