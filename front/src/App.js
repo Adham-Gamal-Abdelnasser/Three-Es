@@ -24,6 +24,8 @@ import Checkout from "./Components/Checkout/Checkout.jsx";
 import CartCalculations from "./Components/CartOperation/CartOperation.jsx";
 import Invoice from "./Components/Invoice/Invoice.jsx";
 import Order from "./Components/Order/Order.jsx";
+import Payment from "./Components/Payment/Payment.jsx";
+import OrderHistory from "./Components/OrderHistory/OrderHistory.jsx";
 
 function App() {
   let routers = createBrowserRouter([
@@ -47,6 +49,7 @@ function App() {
         { path: "calculate-cart", element: <CartCalculations /> },
         { path: "get-invoice", element: <Invoice /> },
         { path: "order", element: <Order /> },
+        { path: "payment", element: <Payment /> },
         { path: "checkout", element: <Checkout /> },
         { path: "categories", element: <Categories /> },
         { path: "addCategory", element: <AddCategory /> },

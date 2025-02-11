@@ -44,40 +44,7 @@ export default function Units() {
   useEffect(() => {
     getUnitsByUserId();
   }, []);
-  // const fetchUnits = async () => {
-  //   try {
-  //     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}unit`);
-  //     setUnits(response.data.allUnits);
-  //     const savedUnitId = localStorage.getItem('activeUnitId');
-  //       if (savedUnitId) {
-  //         setActiveUnitId(savedUnitId);
-  //       }
-  //   } catch (error) {
-  //     console.error("Error fetching units:", error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchUnits();
-  // }, []);
-
-
-
-  // const fetchUnits = async () => {
-  //   activeClientId = localStorage.getItem("activeClientId")
-  //   try {
-  //     const response = await axios.get(`${process.env.REACT_APP_BASE_URL}unit/clients/${activeClientId}/units`);
-  //     setUnits(response.data.allUnits);
-  //     const savedUnitId = localStorage.getItem('activeUnitId');
-  //       if (savedUnitId) {
-  //         setActiveUnitId(savedUnitId);
-  //       }
-  //   } catch (error) {
-  //     console.error("Error fetching units:", error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   fetchUnits();
-  // }, []);
+  
 
   // todo handle activation of units
   const handleUnitActivation = (id) => {

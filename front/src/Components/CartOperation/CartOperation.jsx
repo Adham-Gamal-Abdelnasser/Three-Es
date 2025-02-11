@@ -16,18 +16,7 @@ export default function CartCalculations() {
   const navigate = useNavigate();
   let activeClientId = localStorage.getItem("activeClientId") != null ? localStorage.getItem("activeClientId") : ""
 
-  // todo create order
-  async function createOrder() {
-    activeClientId = localStorage.getItem("activeClientId") != null ? localStorage.getItem("activeClientId") : ""
-    try {
-      let response = await axios.post(`${process.env.REACT_APP_BASE_URL}orders/${activeClientId}`,{});
-      if (response.status == 200) {
-        let orderId = localStorage.setItem("orderId",response?.data?.data?._id)
-      }
-    } catch (error) {
-      notify("error",`an error occurred while creating order : ${error.response.data.error}`)
-    }
-}
+ 
   // todo make calculations
   const calculationsSchema = Yup.object({
     shippingCost: Yup.number().required(),
@@ -239,7 +228,7 @@ export default function CartCalculations() {
 
 
           <div className="w-full flex items-center justify-center mb-3">
-            <Link className='w-full py-4 flex items-center justify-center' onClick={() => createOrder()} to="/order">
+            <Link className='w-full py-4 flex items-center justify-center' to="/order">
               <Button color className="bg-black w-full mx-3 text-white hover:bg-transparent hover:text-black border-2 border-black rounded-3xl">
                 <span className="flex items-center">CREATE ORDER <FaArrowRight className="ml-2" /></span>
               </Button>

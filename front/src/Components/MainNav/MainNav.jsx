@@ -4,10 +4,16 @@ import { Link } from 'react-router-dom';
 import logo from '../../assets/logo2-5.png';
 
 //icons
-import { AiFillProduct } from 'react-icons/ai';
+import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import { BsPaypal } from "react-icons/bs";
 import { FaUser } from 'react-icons/fa';
 import { FaShoppingCart } from "react-icons/fa";
+import { BiSolidCategory } from "react-icons/bi";
 import { IoMdHome } from "react-icons/io";
+import { FaCodePullRequest } from "react-icons/fa6";
+import { FaBuildingColumns } from "react-icons/fa6";
+
+
 
 export default function MainNav() {
   return (
@@ -18,11 +24,7 @@ export default function MainNav() {
         </div>
       </Link>
       <div className='flex md:order-2'>
-        <Dropdown
-          arrowIcon={false}
-          inline
-          label={<Avatar alt='User settings' img='https://flowbite.com/docs/images/people/profile-picture-5.jpg' rounded />}
-        >
+        <Dropdown arrowIcon={false} inline label={<Avatar alt='User settings' img='https://flowbite.com/docs/images/people/profile-picture-5.jpg' rounded />}>
           <Dropdown.Header>
             <span className='block text-sm'>Bonnie Green</span>
             <span className='block truncate text-sm font-medium'>name@flowbite.com</span>
@@ -44,16 +46,11 @@ export default function MainNav() {
         </Navbar.Link> */}
         <Navbar.Link>
           <Link to='/products' className='flex items-center py-4 border-b-4 rounded border-transparent hover:border-black hover:text-black space-x-2'>
-            <AiFillProduct className='text-xl' />
+            <MdOutlineProductionQuantityLimits  className='text-xl' />
             <span>Products</span>
           </Link>
         </Navbar.Link>
-        {/* <Navbar.Link>
-          <Link to='/customers' className='flex items-center py-4 border-b-4 rounded border-transparent hover:border-black hover:text-black space-x-2'>
-            <FaUser className='text-xl' />
-          <span>Customers</span>
-          </Link>
-        </Navbar.Link> */}
+        
         <Navbar.Link>
           <Link to='/cart' className='flex items-center py-4 border-b-4 rounded border-transparent hover:border-black hover:text-black space-x-2'>
             <FaShoppingCart className='text-xl' />
@@ -62,18 +59,24 @@ export default function MainNav() {
         </Navbar.Link>
         <Navbar.Link>
           <Link to='/categories' className='flex items-center py-4 border-b-4 rounded border-transparent hover:border-black hover:text-black space-x-2'>
-            <FaShoppingCart className='text-xl' />
+            <BiSolidCategory  className='text-xl' />
             <span>Categories</span>
           </Link>
         </Navbar.Link>
 
         <Navbar.Link>
           <Link to='/units' className='flex items-center py-4 border-b-4 rounded border-transparent hover:border-black hover:text-black space-x-2'>
-            <FaShoppingCart className='text-xl' />
+            <FaBuildingColumns  className='text-xl' />
             <span>Units</span>
           </Link>
         </Navbar.Link>
 
+        <Navbar.Link>
+          <Link to='/orders' className='flex items-center py-4 border-b-4 rounded border-transparent hover:border-black hover:text-black space-x-2'>
+            <FaCodePullRequest className='text-xl' />
+            <span>Orders</span>
+          </Link>
+        </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   );
