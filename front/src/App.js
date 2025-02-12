@@ -26,6 +26,7 @@ import Invoice from "./Components/Invoice/Invoice.jsx";
 import Order from "./Components/Order/Order.jsx";
 import Payment from "./Components/Payment/Payment.jsx";
 import OrderHistory from "./Components/OrderHistory/OrderHistory.jsx";
+import OrderDetails from "./Components/OrderDetails/OrderDetails.jsx";
 
 function App() {
   let routers = createBrowserRouter([
@@ -49,6 +50,9 @@ function App() {
         { path: "calculate-cart", element: <CartCalculations /> },
         { path: "get-invoice", element: <Invoice /> },
         { path: "order", element: <Order /> },
+        { path: "orders", element: <OrderHistory /> , children:[
+          {path:":selectedOrderId" , element: <OrderDetails></OrderDetails>}
+        ]},
         { path: "payment", element: <Payment /> },
         { path: "checkout", element: <Checkout /> },
         { path: "categories", element: <Categories /> },
